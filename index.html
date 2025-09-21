@@ -19,13 +19,14 @@
         <button class="start-btn" id="start-hi">चलो शुरू करें</button>
       </div>
 
+      <!-- Music toggle -->
       <div class="small-note">
         <label><input type="checkbox" id="musicToggle" checked> Background music</label>
       </div>
     </div>
 
     <div class="splash-footer">
-      <p>Created by teacher Bhaskar Joshi | Email: bhaskarjoshi2024@gmail.com</p>
+      <p>This app is developed by teacher Bhaskar Joshi | Email: bhaskarjoshi2024@gmail.com</p>
     </div>
   </div>
 
@@ -53,7 +54,7 @@
 
     <div class="controls">
       <label for="totalQuestions">Number of Questions:</label>
-      <input type="number" id="totalQuestions" value="20" min="1" max="50">
+      <input type="number" id="totalQuestions" value="10" min="1" max="50">
     </div>
 
     <div class="start-footer">
@@ -71,15 +72,13 @@
       </div>
     </header>
 
-    <img id="question-image" src="assets/images/placeholder.png" alt="Question Illustration">
+    <img id="question-image" src="image1.png" alt="Question Illustration">
 
     <div class="options" id="options"></div>
 
     <div class="footer">
       <button type="button" id="next-btn" disabled>Next Question</button>
-      <button type="button" id="back-btn">Back</button>
     </div>
-    <div class="progress-bar"><div id="progress-fill"></div></div>
   </section>
 
   <!-- Result Screen -->
@@ -95,13 +94,12 @@
     </div>
 
     <div class="grade" id="grade"><p>A</p></div>
-    <div id="celebration" class="hide"></div>
   </section>
 
   <div class="notify" id="notify" aria-live="polite"></div>
 
-  <!-- Audio (placeholders; add your files in assets/sounds/) -->
-  <audio id="bg-music" loop preload="auto" src="assets/sounds/bg.mp3"></audio>
+  <!-- Audio file in root -->
+  <audio id="bg-music" loop preload="auto" src="bg.mp3"></audio>
   <audio id="sound-correct" preload="auto" src="assets/sounds/correct.mp3"></audio>
   <audio id="sound-wrong" preload="auto" src="assets/sounds/wrong.mp3"></audio>
 
