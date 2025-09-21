@@ -1,81 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./app.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="./app.css" />
   <title>Quizzy Math Kids</title>
 </head>
 <body>
 
   <!-- Splash Screen -->
-  <div class="splash show">
-      <div class="splash-content">
-          <img src="image1.png" alt="Splash Image" class="splash-img">
-          <h1>Quizzy Math Kids</h1>
-          <div class="button-group">
-              <button class="start-btn">Get Started</button>
-              <button class="start-btn">चलो शुरू करें</button>
-          </div>
+  <div class="splash show" role="dialog" aria-label="Welcome screen">
+    <div class="splash-content">
+      <img src="image1.png" alt="Splash Image" class="splash-img">
+      <h1 class="brand">Quizzy Math Kids</h1>
+
+      <div class="button-group">
+        <button class="start-btn" id="start-en">Get Started</button>
+        <button class="start-btn" id="start-hi">चलो शुरू करें</button>
       </div>
-      <div class="splash-footer">
-          <p>This app is developed by teacher Bhaskar Joshi</p>
+
+      <div class="small-note">
+        <label><input type="checkbox" id="musicToggle" checked> Background music</label>
       </div>
+    </div>
+
+    <div class="splash-footer">
+      <p>This app is developed by teacher Bhaskar Joshi</p>
+    </div>
   </div>
 
   <!-- Start Screen -->
-  <div class="start hide">
-      <div class="header">
-          <h2>Select difficulty and operation type, then hit Start to play.</h2>
-      </div>
-      <div class="start-options">
-          <span class="option-container" operand="+">Addition</span>
-          <span class="option-container" operand="-">Subtraction</span>
-          <span class="option-container" operand="×">Multiplication</span>
-          <span class="option-container" operand="÷">Division</span>
-      </div>
-      <div class="difficulty">
-          <label>Choose Difficulty:</label>
-          <select id="difficulty">
-              <option value="easy">Easy</option>
-              <option value="average">Average</option>
-              <option value="hard">Hard</option>
-          </select>
-      </div>
-      <div class="difficulty">
-          <label>Number of Questions:</label>
-          <input type="number" id="totalQuestions" value="10" min="1">
-      </div>
-      <div class="start-footer">
-          <button type="button" id="start">Start Quiz</button>
-      </div>
-  </div>
+  <main class="start hide" aria-hidden="true">
+    <header class="header">
+      <h2>Select difficulty and operation type, then hit Start to play.</h2>
+    </header>
+
+    <section class="start-options" role="list" aria-label="Operations">
+      <button class="option-container" data-operand="+">Addition</button>
+      <button class="option-container" data-operand="-">Subtraction</button>
+      <button class="option-container" data-operand="*">Multiplication</button>
+      <button class="option-container" data-operand="/">Division</button>
+    </section>
+
+    <div class="controls">
+      <label for="difficulty">Choose Difficulty:</label>
+      <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="average">Average</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
+
+    <div class="controls">
+      <label for="totalQuestions">Number of Questions:</label>
+      <input type="number" id="totalQuestions" value="10" min="1" max="50">
+    </div>
+
+    <div class="start-footer">
+      <button type="button" id="start">Start Quiz</button>
+    </div>
+  </main>
 
   <!-- Question Screen -->
-  <div class="question hide">
-      <div class="header">
-          <h2 id="question-text">Question text here</h2>
+  <section class="question hide" aria-hidden="true">
+    <header class="header">
+      <h2 id="question-text">Question text here</h2>
+      <div class="meta">
+        <span id="progress">0 / 0</span>
+        <span id="score">Score: 0</span>
       </div>
-      <img id="question-image" src="assets/images/placeholder.png" alt="Question Illustration">
-      <div class="options"></div>
-      <div class="footer">
-          <button type="button" id="next-btn">Next Question</button>
-      </div>
-  </div>
+    </header>
+
+    <img id="question-image" src="assets/images/placeholder.png" alt="Question Illustration">
+
+    <div class="options" id="options"></div>
+
+    <div class="footer">
+      <button type="button" id="next-btn" disabled>Next Question</button>
+    </div>
+  </section>
 
   <!-- Result Screen -->
-  <div class="result hide">
-      <div class="header">
-          <h2>Your Score</h2>
-      </div>
-      <div class="options"></div>
-      <div class="result-footer">
-          <button type="button" id="restart">Restart Quiz</button>
-      </div>
-      <div class="grade"><p>A</p></div>
-  </div>
+  <section class="result hide" aria-hidden="true">
+    <div class="header">
+      <h2>Your Score</h2>
+      <p id="final-score">0 / 0</p>
+    </div>
 
-  <div class="notify"></div>
+    <div class="result-actions">
+      <button type="button" id="restart">Restart Quiz</button>
+      <button type="button" id="play-again">Play Again</button>
+    </div>
+
+    <div class="grade" id="grade"><p>A</p></div>
+  </section>
+
+  <div class="notify" id="notify" aria-live="polite"></div>
+
+  <!-- Audio (placeholders; add your files in assets/sounds/) -->
+  <audio id="bg-music" loop preload="auto" src="assets/sounds/bg.mp3"></audio>
+  <audio id="sound-correct" preload="auto" src="assets/sounds/correct.mp3"></audio>
+  <audio id="sound-wrong" preload="auto" src="assets/sounds/wrong.mp3"></audio>
 
   <p class="link">Created by Bhaskar Joshi | Email: bhaskarjoshi@example.com</p>
 
