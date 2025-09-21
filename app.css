@@ -41,16 +41,17 @@ body{
   inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* top content, bottom footer */
+  justify-content: space-between;
   align-items: center;
   text-align: center;
-  background: #f0f5fd url('image1.png') no-repeat center center;
+  background: linear-gradient(135deg, rgba(238,174,202,0.3) 0%, rgba(136,98,255,0.3) 50%, rgba(148,187,233,0.3) 100%), url('image1.png') no-repeat center center;
   background-size: cover;
   z-index: 1000;
   padding: 20px;
   overflow: hidden;
 }
 
+/* Splash content */
 .splash-content {
   display: flex;
   flex-direction: column;
@@ -74,7 +75,7 @@ body{
   margin: 10px 0;
 }
 
-/* Button group: left-right */
+/* Button group */
 .button-group {
   display: flex;
   gap: 12px;
@@ -105,11 +106,17 @@ body{
   margin-top: 6px;
 }
 
-/* Footer always at bottom */
+/* Footer with colorful strip */
 .splash-footer {
-  color: #494c6e;
-  font-size: 0.95rem;
+  width: 100%;
+  background: linear-gradient(90deg, #fdb95c, #7daefe, #6ed158, #fdb95c);
+  padding: 8px 12px;
+  border-radius: 12px;
   text-align: center;
+  font-size: 0.95rem;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   margin-bottom: 8px;
 }
 
