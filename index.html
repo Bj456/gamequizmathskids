@@ -1,96 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./app.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Quizzy Math Kids</title>
-  <!-- Lottie player -->
+  <link rel="stylesheet" href="./app.css" />
+  <!-- Lottie player for celebration -->
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
-
   <!-- Splash Screen -->
-  <div class="splash show">
+  <div class="splash show" role="dialog" aria-label="Welcome">
     <div class="splash-content">
-      <img src="image1.png" alt="Splash Image" class="splash-img">
-      <h1>Quizzy Math Kids</h1>
+      <img src="image1.png" alt="Splash" class="splash-img" />
+      <h1 class="brand">Quizzy Math Kids</h1>
+
       <div class="button-group">
-        <button class="start-btn">Get Started</button>
-        <button class="start-btn">चलो शुरू करें</button>
+        <button id="start-en" class="start-btn">Get Started</button>
+        <button id="start-hi" class="start-btn">चलो शुरू करें</button>
+      </div>
+
+      <div class="small-note">
+        <label><input id="musicToggle" type="checkbox" checked /> Background music</label>
       </div>
     </div>
+
     <div class="splash-footer">
       <p>Created by Teacher Bhaskar Joshi | Email: bhaskarjoshi2024@gmail.com</p>
     </div>
   </div>
 
   <!-- Start Screen -->
-  <div class="start hide">
-    <div class="header">
+  <main class="start hide" aria-hidden="true">
+    <header class="header">
       <h2>Select difficulty and operation type, then hit Start to play.</h2>
-    </div>
-    <div class="start-options">
-      <span class="option-container" operand="+">Addition</span>
-      <span class="option-container" operand="-">Subtraction</span>
-      <span class="option-container" operand="×">Multiplication</span>
-      <span class="option-container" operand="÷">Division</span>
-    </div>
-    <div class="difficulty">
-      <label>Choose Difficulty:</label>
+    </header>
+
+    <section class="start-options" role="list" aria-label="Operations">
+      <button class="option-container" data-operand="+">Addition</button>
+      <button class="option-container" data-operand="-">Subtraction</button>
+      <button class="option-container" data-operand="*">Multiplication</button>
+      <button class="option-container" data-operand="/">Division</button>
+    </section>
+
+    <div class="controls">
+      <label for="difficulty">Choose Difficulty:</label>
       <select id="difficulty">
         <option value="easy">Easy</option>
         <option value="average">Average</option>
         <option value="hard">Hard</option>
       </select>
     </div>
-    <div class="difficulty">
-      <label>Number of Questions:</label>
-      <input type="number" id="totalQuestions" value="20" min="1">
+
+    <div class="controls">
+      <label for="totalQuestions">Number of Questions:</label>
+      <input id="totalQuestions" type="number" value="20" min="1" max="50" />
     </div>
+
     <div class="start-footer">
-      <button type="button" id="start">Start Quiz</button>
-      <button type="button" class="back-btn">Back</button>
+      <button id="start" class="primary-btn">Start Quiz</button>
+      <button class="secondary-btn back-to-splash">Back</button>
     </div>
-  </div>
+  </main>
 
   <!-- Question Screen -->
-  <div class="question hide">
-    <div class="header">
-      <h2 id="question-text">Question text here</h2>
+  <section class="question hide" aria-hidden="true">
+    <header class="header">
+      <h2 id="question-text">Question text</h2>
+      <div class="meta">
+        <span id="progress">0 / 0</span>
+        <span id="score">Score: 0</span>
+      </div>
+    </header>
+
+    <img id="question-image" src="assets/images/placeholder.png" alt="Question Illustration" />
+
+    <div id="options" class="options" role="list"></div>
+
+    <div class="progress-container" aria-hidden="false">
+      <div id="progress-bar" class="progress-bar"></div>
     </div>
-    <img id="question-image" src="assets/images/placeholder.png" alt="Question Illustration">
-    <div class="options"></div>
-    <div class="progress-container">
-      <div class="progress-bar" id="progress-bar"></div>
-    </div>
+
     <div class="footer">
-      <button type="button" id="next-btn">Next Question</button>
-      <button type="button" class="back-btn">Back</button>
+      <button id="next-btn" class="primary-btn" disabled>Next Question</button>
+      <button class="secondary-btn back-to-splash">Back</button>
     </div>
-  </div>
+  </section>
 
   <!-- Result Screen -->
-  <div class="result hide">
+  <section class="result hide" aria-hidden="true">
     <div class="header">
       <h2>Your Score</h2>
-      <p id="score-text"></p>
+      <p id="final-score">0 / 0</p>
     </div>
-    <div id="celebration"></div>
-    <div class="result-footer">
-      <button type="button" id="restart">Restart Quiz</button>
-      <button type="button" class="back-btn">Back</button>
+
+    <div id="celebration" class="celebration-area" aria-live="polite"></div>
+
+    <div class="result-actions">
+      <button id="restart" class="primary-btn">Restart Quiz</button>
+      <button class="secondary-btn back-to-splash">Back</button>
     </div>
-    <div class="grade"><p>A</p></div>
-  </div>
 
-  <div class="notify"></div>
+    <div class="grade" id="grade"><p>A</p></div>
+  </section>
 
-  <!-- Background Music -->
-  <audio id="bg-music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f573ac229d.mp3" loop preload="auto"></audio>
+  <div id="notify" class="notify" aria-hidden="true"></div>
 
-  <!-- Celebration sound -->
-  <audio id="celebration-sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c4cb06ec36.mp3" preload="auto"></audio>
+  <!-- Background music (royalty-free example from Pixabay) -->
+  <audio id="bg-music" loop preload="auto" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f573ac229d.mp3"></audio>
+
+  <!-- Celebration sound (royalty-free example) -->
+  <audio id="celebration-sound" preload="auto" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c4cb06ec36.mp3"></audio>
 
   <script src="./app.js"></script>
 </body>
