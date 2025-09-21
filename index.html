@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./app.css">
+    <link rel="stylesheet" href="./animations.css">
+    <title>Quizzy Math Kids</title>
+</head>
+<body>
+    <div class="logo">
+        <h1>Quizzy Math Kids</h1>
+        <p>A fun math quiz for kids by Bhaskar Joshi | Email: bhaskarjoshi@example.com</p>
+    </div>
+
+    <!-- Start Screen -->
+    <div class="start show">
+        <div class="header">
+            <h2>Select the difficulty and operation type, then hit Start to play.</h2>
+        </div>
+        <div class="start-options">
+            <span class="option-container" operand="+">Addition</span>
+            <span class="option-container" operand="-">Subtraction</span>
+            <span class="option-container" operand="×">Multiplication</span>
+            <span class="option-container" operand="÷">Division</span>
+        </div>
+        <div class="difficulty">
+            <label>Choose Difficulty:</label>
+            <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="average">Average</option>
+                <option value="hard">Hard</option>
+            </select>
+        </div>
+        <div class="difficulty">
+            <label>Number of Questions:</label>
+            <input type="number" id="totalQuestions" value="10" min="1">
+        </div>
+        <div class="start-footer">
+            <button type="button" id="start">Start Quiz</button>
+        </div>
+    </div>
+
+    <!-- Question Screen -->
+    <div class="question hide">
+        <div class="header">
+            <h2>Question text here</h2>
+        </div>
+        <img id="question-image" src="" alt="Question Illustration">
+        <div class="options"></div>
+        <div class="footer">
+            <button type="button" id="next-btn">Next Question</button>
+        </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="result hide">
+        <div class="header">
+            <h2>Your Score</h2>
+        </div>
+        <div class="options"></div>
+        <div class="result-footer">
+            <button type="button" id="restart">Restart Quiz</button>
+        </div>
+        <div class="grade"><p>A</p></div>
+    </div>
+
+    <div class="notify"></div>
+
+    <p class="link">Created by Bhaskar Joshi | Email: bhaskarjoshi@example.com</p>
+
+    <script src="./app.js"></script>
+</body>
+</html>
