@@ -2,11 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const splash = document.querySelector('.splash');
     const startScreen = document.querySelector('.start');
-    const startButtons = document.querySelectorAll('.start-btn');
+    const startButtons = document.querySelectorAll('.start-btn'); // Both buttons
 
-    // Splash buttons click → start quiz
-    startButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
+    // Splash buttons click → start screen
+    startButtons.forEach(button => {
+        button.addEventListener('click', () => {
             splash.classList.remove('show');
             splash.classList.add('hide');
             startScreen.classList.remove('hide');
@@ -21,5 +21,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const questionImage = document.getElementById('question-image');
     const restartBtn = document.getElementById('restart');
 
-    function generateQuestion(){
-        return { text:"2 × 3 = ?", image:"assets/images/placeholder.png", answer:"6", options:["5","6","7","
+    let currentQ = 0, score = 0, totalQuestions = 10;
+
+    startBtn.addEventListener('click', () => {
+        totalQuestions = parseInt(document.getElementById('totalQuestions').value);
+        startScreen.classList.remove('show');
+        startScreen.classList.add('hide');
+        questionScreen.classList.add('show');
+
+        // Example question
+        questionImage.src = "assets/images/placeholder.png";
+    });
+
+    restartBtn.addEventListener('click', () => location.reload());
+});
