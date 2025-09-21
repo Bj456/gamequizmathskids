@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const soundCorrect = document.getElementById('sound-correct');
   const soundWrong = document.getElementById('sound-wrong');
 
+  // start options
   const operandButtons = document.querySelectorAll('.option-container');
   operandButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // state
   let currentQ = 0;
   let score = 0;
   let totalQuestions = 20;
@@ -38,25 +40,21 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastAnswerIndex = null;
   let allowMusic = true;
 
+  // helper - show notify
   function showNotify(text, ms = 1500) {
     notify.textContent = text;
     notify.classList.add('show');
     setTimeout(() => notify.classList.remove('show'), ms);
   }
 
-  function playBackgroundMusic() {
-    allowMusic = musicToggle && musicToggle.checked;
+  // audio control
+  function startBackgroundMusicIfAllowed() {
+    allowMusic = musicToggle.checked;
     if (allowMusic) {
-      bgMusic.currentTime = 0;
-      bgMusic.volume = 0.5;
-      const playPromise = bgMusic.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => console.log("✅ Background music started"))
-          .catch(err => console.warn("⚠️ Music play failed:", err));
-      }
+      bgMusic.play().catch(()=>{});
     } else {
-      console.log("🔇 Music toggle is off");
+      bgMusic.pause();
+      bgMusic.currentTime = 0;
     }
   }
 
@@ -66,46 +64,35 @@ document.addEventListener('DOMContentLoaded', () => {
       splash.classList.add('hide');
       startScreen.classList.remove('hide');
       startScreen.classList.add('show');
-      playBackgroundMusic();
+      startBackgroundMusicIfAllowed();
     });
   });
 
   startBtn.addEventListener('click', () => {
     const selectedOperand = document.querySelector('.option-container.selected');
-    if (!selectedOperand) {
-      showNotify('Please select an operation first');
-      return;
-    }
+    if (!selectedOperand) { showNotify('Please select an operation first'); return; }
     const operand = selectedOperand.getAttribute('data-operand');
     const difficulty = document.getElementById('difficulty').value;
     totalQuestions = Math.max(1, parseInt(document.getElementById('totalQuestions').value) || 20);
     questions = generateQuiz(operand, difficulty, totalQuestions);
-    score = 0;
-    currentQ = 0;
-    startScreen.classList.remove('show');
-    startScreen.classList.add('hide');
-    questionScreen.classList.remove('hide');
-    questionScreen.classList.add('show');
-    playBackgroundMusic();
+    score = 0; currentQ = 0;
+    startScreen.classList.remove('show'); startScreen.classList.add('hide');
+    questionScreen.classList.remove('hide'); questionScreen.classList.add('show');
+    startBackgroundMusicIfAllowed();
     renderQuestion();
   });
 
   nextBtn.addEventListener('click', () => {
     currentQ++;
     lastAnswerIndex = null;
-    if (currentQ >= questions.length) {
-      showResults();
-    } else {
-      renderQuestion();
-    }
+    if (currentQ >= questions.length) { showResults(); }
+    else { renderQuestion(); }
   });
 
   restartBtn.addEventListener('click', () => location.reload());
   playAgainBtn.addEventListener('click', () => {
-    resultScreen.classList.remove('show');
-    resultScreen.classList.add('hide');
-    startScreen.classList.remove('hide');
-    startScreen.classList.add('show');
+    resultScreen.classList.remove('show'); resultScreen.classList.add('hide');
+    startScreen.classList.remove('hide'); startScreen.classList.add('show');
   });
 
   function renderQuestion() {
@@ -126,12 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const img = document.getElementById('question-image');
-    if (q.image) {
-      img.src = q.image;
-      img.style.display = 'block';
-    } else {
-      img.style.display = 'none';
-    }
+    if (q.image) { img.src = q.image; img.style.display = 'block'; }
+    else { img.style.display = 'none'; }
   }
 
   function handleAnswer(buttonEl, idx) {
@@ -146,12 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (idx === correctIdx) {
       buttonEl.classList.add('correct');
       score++;
-      soundCorrect.play().catch(() => {});
+      soundCorrect.play().catch(()=>{});
       showNotify('Correct 👍');
     } else {
       buttonEl.classList.add('wrong');
       if (allBtn[correctIdx]) allBtn[correctIdx].classList.add('correct');
-      soundWrong.play().catch(() => {});
+      soundWrong.play().catch(()=>{});
       showNotify('Wrong ✖');
     }
 
@@ -160,10 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function showResults() {
-    questionScreen.classList.remove('show');
-    questionScreen.classList.add('hide');
-    resultScreen.classList.remove('hide');
-    resultScreen.classList.add('show');
+    questionScreen.classList.remove('show'); questionScreen.classList.add('hide');
+    resultScreen.classList.remove('hide'); resultScreen.classList.add('show');
     finalScoreEl.textContent = `${score} / ${questions.length}`;
     const pct = Math.round((score / questions.length) * 100);
     let grade = 'C';
@@ -176,11 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function generateQuiz(op, difficulty, count) {
     const qList = [];
-    const difficultyMap = {
-      easy: { min: 1, max: 10 },
-      average: { min: 2, max: 20 },
-      hard: { min: 5, max: 99 }
-    };
+    const difficultyMap = { easy:{min:1,max:10}, average:{min:2,max:20}, hard:{min:5,max:99} };
     const range = difficultyMap[difficulty] || difficultyMap.easy;
     while (qList.length < count) {
       const q = generateQuestion(op, range.min, range.max);
@@ -189,38 +166,22 @@ document.addEventListener('DOMContentLoaded', () => {
     return qList;
   }
 
-  function randInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+
+  function generateQuestion(op,minVal,maxVal){
+    let a,b,text,correct;
+    if(op==='+'){a=randInt(minVal,maxVal);b=randInt(minVal,maxVal);correct=a+b;text=`${a} + ${b} = ?`;}
+    else if(op==='-'){a=randInt(minVal,maxVal);b=randInt(minVal,Math.min(a,maxVal));correct=a-b;text=`${a} - ${b} = ?`;}
+    else if(op==='*'){a=randInt(Math.max(1,minVal),Math.max(2,Math.floor(maxVal/2)));b=randInt(1,Math.max(1,Math.floor(maxVal/2)));correct=a*b;text=`${a} × ${b} = ?`;}
+    else if(op==='/'){b=randInt(1,Math.max(1,Math.floor(maxVal/4)));const multiplier=randInt(minVal,Math.max(2,Math.floor(maxVal/Math.max(1,b))));a=b*multiplier;correct=Math.floor(a/b);text=`${a} ÷ ${b} = ?`;}
+    else{a=randInt(minVal,maxVal);b=randInt(minVal,maxVal);correct=a+b;text=`${a} + ${b} = ?`;}
+    const options=new Set();options.add(correct);
+    while(options.size<4){let delta=Math.max(1,Math.floor(Math.abs(correct)*0.2))||1;const candidate=correct+randInt(-delta*3,delta*3);if(candidate!==correct&&candidate>=-999&&candidate<=9999)options.add(candidate);}
+    const optsArr=shuffle(Array.from(options));const answerIndex=optsArr.indexOf(correct);
+    return { text, options:optsArr, answerIndex, image:null };
   }
 
-  function generateQuestion(op, minVal, maxVal) {
-    let a, b, text, correct;
-    if (op === '+') {
-      a = randInt(minVal, maxVal);
-      b = randInt(minVal, maxVal);
-      correct = a + b;
-      text = `${a} + ${b} = ?`;
-    } else if (op === '-') {
-      a = randInt(minVal, maxVal);
-      b = randInt(minVal, Math.min(a, maxVal));
-      correct = a - b;
-      text = `${a} - ${b} = ?`;
-    } else if (op === '*') {
-      a = randInt(Math.max(1, minVal), Math.max(2, Math.floor(maxVal / 2)));
-      b = randInt(1, Math.max(1, Math.floor(maxVal / 2)));
-      correct = a * b;
-      text = `${a} × ${b} = ?`;
-    } else if (op === '/') {
-      b = randInt(1, Math.max(1, Math.floor(maxVal / 4)));
-      const multiplier = randInt(minVal, Math.max(2, Math.floor(maxVal / Math.max(1, b))));
-      a = b * multiplier;
-      correct = Math.floor(a / b);
-      text = `${a} ÷ ${b} = ?`;
-    } else {
-      a = randInt(minVal, maxVal);
-      b = randInt(minVal, maxVal);
-      correct = a + b;
-      text = `${a} + ${b} = ?`;
-    }
+  function shuffle(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
-    const options
+  if(musicToggle){musicToggle.addEventListener('change',()=>{allowMusic=musicToggle.checked;if(!allowMusic){bgMusic.pause();bgMusic.currentTime=0;}else{bgMusic.play().catch(()=>{});}});}
+});
