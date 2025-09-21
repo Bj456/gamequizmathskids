@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let totalQuestions = 20;
   let questions = [];
   let lastAnswerIndex = null;
-  let allowMusic = true;
+  let allowMusic = musicToggle.checked;
 
   // helper - show notify
   function showNotify(text, ms = 1500) {
@@ -47,27 +47,32 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => notify.classList.remove('show'), ms);
   }
 
-  // audio control
-  function startBackgroundMusicIfAllowed() {
-    allowMusic = musicToggle.checked;
-    if (allowMusic) {
-      bgMusic.play().catch(()=>{});
+  // function to play/pause bg music based on checkbox
+  function handleBackgroundMusic() {
+    if (musicToggle.checked) {
+      bgMusic.currentTime = 0;
+      bgMusic.volume = 0.5;
+      bgMusic.play().catch(err => console.log("bgMusic play blocked:", err));
     } else {
       bgMusic.pause();
       bgMusic.currentTime = 0;
     }
   }
 
+  // Get Started buttons click
   [startEn, startHi].forEach(btn => {
     btn.addEventListener('click', () => {
       splash.classList.remove('show');
       splash.classList.add('hide');
       startScreen.classList.remove('hide');
       startScreen.classList.add('show');
-      startBackgroundMusicIfAllowed();
+
+      // Play bg music on first click
+      handleBackgroundMusic();
     });
   });
 
+  // Start quiz button
   startBtn.addEventListener('click', () => {
     const selectedOperand = document.querySelector('.option-container.selected');
     if (!selectedOperand) { showNotify('Please select an operation first'); return; }
@@ -78,10 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
     score = 0; currentQ = 0;
     startScreen.classList.remove('show'); startScreen.classList.add('hide');
     questionScreen.classList.remove('hide'); questionScreen.classList.add('show');
-    startBackgroundMusicIfAllowed();
+    handleBackgroundMusic();
     renderQuestion();
   });
 
+  // Next question
   nextBtn.addEventListener('click', () => {
     currentQ++;
     lastAnswerIndex = null;
@@ -89,12 +95,19 @@ document.addEventListener('DOMContentLoaded', () => {
     else { renderQuestion(); }
   });
 
+  // Restart / Play again
   restartBtn.addEventListener('click', () => location.reload());
   playAgainBtn.addEventListener('click', () => {
     resultScreen.classList.remove('show'); resultScreen.classList.add('hide');
     startScreen.classList.remove('hide'); startScreen.classList.add('show');
   });
 
+  // Checkbox toggle
+  musicToggle.addEventListener('change', () => {
+    handleBackgroundMusic();
+  });
+
+  // Render question
   function renderQuestion() {
     const q = questions[currentQ];
     questionText.textContent = `Q${currentQ + 1}: ${q.text}`;
@@ -117,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     else { img.style.display = 'none'; }
   }
 
+  // Handle answer click
   function handleAnswer(buttonEl, idx) {
     if (lastAnswerIndex !== null) return;
     lastAnswerIndex = idx;
@@ -142,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     nextBtn.disabled = false;
   }
 
+  // Show results
   function showResults() {
     questionScreen.classList.remove('show'); questionScreen.classList.add('hide');
     resultScreen.classList.remove('hide'); resultScreen.classList.add('show');
@@ -155,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gradeEl.querySelector('p').textContent = grade;
   }
 
+  // Quiz generation
   function generateQuiz(op, difficulty, count) {
     const qList = [];
     const difficultyMap = { easy:{min:1,max:10}, average:{min:2,max:20}, hard:{min:5,max:99} };
@@ -182,6 +198,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function shuffle(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-
-  if(musicToggle){musicToggle.addEventListener('change',()=>{allowMusic=musicToggle.checked;if(!allowMusic){bgMusic.pause();bgMusic.currentTime=0;}else{bgMusic.play().catch(()=>{});}});}
 });
