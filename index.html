@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Quizzy Math Kids</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="./app.css" />
-  <!-- Lottie player for celebration -->
-  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <title>Quizzy Math Kids</title>
 </head>
 <body>
+
   <!-- Splash Screen -->
-  <div class="splash show" role="dialog" aria-label="Welcome">
+  <div class="splash show" role="dialog" aria-label="Welcome screen">
     <div class="splash-content">
-      <img src="image1.png" alt="Splash" class="splash-img" />
+      <img src="image1.png" alt="Splash Image" class="splash-img">
       <h1 class="brand">Quizzy Math Kids</h1>
 
       <div class="button-group">
-        <button id="start-en" class="start-btn">Get Started</button>
-        <button id="start-hi" class="start-btn">चलो शुरू करें</button>
+        <button class="start-btn" id="start-en">Get Started</button>
+        <button class="start-btn" id="start-hi">चलो शुरू करें</button>
       </div>
 
       <div class="small-note">
-        <label><input id="musicToggle" type="checkbox" checked /> Background music</label>
+        <label><input type="checkbox" id="musicToggle" checked> Background music</label>
       </div>
     </div>
 
     <div class="splash-footer">
-      <p>Created by Teacher Bhaskar Joshi | Email: bhaskarjoshi2024@gmail.com</p>
+      <p>Created by teacher Bhaskar Joshi | Email: bhaskarjoshi2024@gmail.com</p>
     </div>
   </div>
 
@@ -54,37 +53,33 @@
 
     <div class="controls">
       <label for="totalQuestions">Number of Questions:</label>
-      <input id="totalQuestions" type="number" value="20" min="1" max="50" />
+      <input type="number" id="totalQuestions" value="20" min="1" max="50">
     </div>
 
     <div class="start-footer">
-      <button id="start" class="primary-btn">Start Quiz</button>
-      <button class="secondary-btn back-to-splash">Back</button>
+      <button type="button" id="start">Start Quiz</button>
     </div>
   </main>
 
   <!-- Question Screen -->
   <section class="question hide" aria-hidden="true">
     <header class="header">
-      <h2 id="question-text">Question text</h2>
+      <h2 id="question-text">Question text here</h2>
       <div class="meta">
         <span id="progress">0 / 0</span>
         <span id="score">Score: 0</span>
       </div>
     </header>
 
-    <img id="question-image" src="assets/images/placeholder.png" alt="Question Illustration" />
+    <img id="question-image" src="assets/images/placeholder.png" alt="Question Illustration">
 
-    <div id="options" class="options" role="list"></div>
-
-    <div class="progress-container" aria-hidden="false">
-      <div id="progress-bar" class="progress-bar"></div>
-    </div>
+    <div class="options" id="options"></div>
 
     <div class="footer">
-      <button id="next-btn" class="primary-btn" disabled>Next Question</button>
-      <button class="secondary-btn back-to-splash">Back</button>
+      <button type="button" id="next-btn" disabled>Next Question</button>
+      <button type="button" id="back-btn">Back</button>
     </div>
+    <div class="progress-bar"><div id="progress-fill"></div></div>
   </section>
 
   <!-- Result Screen -->
@@ -94,23 +89,21 @@
       <p id="final-score">0 / 0</p>
     </div>
 
-    <div id="celebration" class="celebration-area" aria-live="polite"></div>
-
     <div class="result-actions">
-      <button id="restart" class="primary-btn">Restart Quiz</button>
-      <button class="secondary-btn back-to-splash">Back</button>
+      <button type="button" id="restart">Restart Quiz</button>
+      <button type="button" id="play-again">Play Again</button>
     </div>
 
     <div class="grade" id="grade"><p>A</p></div>
+    <div id="celebration" class="hide"></div>
   </section>
 
-  <div id="notify" class="notify" aria-hidden="true"></div>
+  <div class="notify" id="notify" aria-live="polite"></div>
 
-  <!-- Background music (royalty-free example from Pixabay) -->
-  <audio id="bg-music" loop preload="auto" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f573ac229d.mp3"></audio>
-
-  <!-- Celebration sound (royalty-free example) -->
-  <audio id="celebration-sound" preload="auto" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c4cb06ec36.mp3"></audio>
+  <!-- Audio (placeholders; add your files in assets/sounds/) -->
+  <audio id="bg-music" loop preload="auto" src="assets/sounds/bg.mp3"></audio>
+  <audio id="sound-correct" preload="auto" src="assets/sounds/correct.mp3"></audio>
+  <audio id="sound-wrong" preload="auto" src="assets/sounds/wrong.mp3"></audio>
 
   <script src="./app.js"></script>
 </body>
