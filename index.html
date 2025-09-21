@@ -8,13 +8,19 @@
     <title>Quizzy Math Kids</title>
 </head>
 <body>
-    <div class="logo">
+
+    <!-- Splash Screen -->
+    <div class="splash show">
+        <img src="image1.png" alt="Splash Image" class="splash-img">
         <h1>Quizzy Math Kids</h1>
-        <p>A fun math quiz for kids by Bhaskar Joshi | Email: bhaskarjoshi@example.com</p>
+        <button id="start-app">चलो शुरू करें</button>
+        <div class="splash-footer">
+            <p>This app is developed by teacher Bhaskar Joshi</p>
+        </div>
     </div>
 
     <!-- Start Screen -->
-    <div class="start show">
+    <div class="start hide">
         <div class="header">
             <h2>Select the difficulty and operation type, then hit Start to play.</h2>
         </div>
@@ -46,7 +52,7 @@
         <div class="header">
             <h2>Question text here</h2>
         </div>
-        <img id="question-image" src="" alt="Question Illustration">
+        <img id="question-image" src="assets/images/placeholder.png" alt="Question Illustration">
         <div class="options"></div>
         <div class="footer">
             <button type="button" id="next-btn">Next Question</button>
