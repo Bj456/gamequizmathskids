@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+
 :root {
   --white: #ffffff;
   --body-bg: linear-gradient(72deg, rgba(238,174,202,1) 0%, rgba(136,98,255,1) 51%, rgba(148,187,233,1) 100%);
