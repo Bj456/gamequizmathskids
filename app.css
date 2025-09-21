@@ -31,7 +31,7 @@ body{
   animation: gradient 15s ease infinite;
 }
 
-/* small utilities */
+/* Utilities */
 .hide{display:none !important}
 .show{display:flex !important}
 
@@ -70,7 +70,8 @@ body{
 }
 
 .brand {
-  font-size: 2.2rem;
+  font-size: 2.6rem; /* slightly bigger */
+  font-weight: 700;
   color: var(--text-color);
   margin: 10px 0;
 }
@@ -110,13 +111,13 @@ body{
 .splash-footer {
   width: 100%;
   background: linear-gradient(90deg, #fdb95c, #7daefe, #6ed158, #fdb95c);
-  padding: 8px 12px;
+  padding: 16px 12px; /* bigger padding */
   border-radius: 12px;
   text-align: center;
-  font-size: 0.95rem;
+  font-size: 1.1rem; /* bigger text */
   color: #fff;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   margin-bottom: 8px;
 }
 
@@ -184,7 +185,8 @@ body{
   .button-group{flex-direction:row;gap:8px}
   .start-btn{font-size:1rem;padding:14px}
   .splash-img{max-width:280px}
-  .brand{font-size:1.8rem}
+  .brand{font-size:2rem}
+  .splash-footer{font-size:1rem;padding:12px}
 }
 
 @keyframes gradient{
