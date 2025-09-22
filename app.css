@@ -40,16 +40,27 @@ body{
   display:flex;flex-direction:column;justify-content:center;align-items:center;
   text-align:center;background:#f0f5fd;z-index:1000;padding:20px;
 }
-.splash-content{display:flex;flex-direction:column;align-items:center;gap:12px}
+.splash-content{
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  /* नीचे footer के लिए जगह छोड़ रहे हैं ताकि footer overlap न करे */
+  padding-bottom:72px;
+}
 .splash-img{width:90%;max-width:420px;aspect-ratio:9/16;object-fit:cover;border-radius:16px}
 .brand{font-size:2.8rem;color:var(--text-color);margin-bottom:6px;background:linear-gradient(90deg,#fdb95c,#7daefe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
 /* Button group: make them large and responsive */
+/* Changed to keep buttons side-by-side (left-right) even on small screens as requested */
 .button-group{
-  display:flex;gap:12px;width:100%;max-width:420px;
+  display:flex;
+  gap:12px;
+  width:100%;
+  max-width:420px;
+  justify-content:space-between;
+  align-items:center;
 }
 .start-btn{
-  flex:1;
+  /* changed from flex:1 to fixed share so two buttons remain side-by-side */
+  flex: 0 0 48%;
   padding:16px 12px;
   border-radius:14px;
   border:none;
@@ -65,16 +76,24 @@ body{
 .start-btn:focus{outline:3px solid rgba(0,0,0,0.06)}
 
 .small-note{font-size:0.9rem;color:#333;margin-top:6px}
+
+/* Splash footer: fixed to bottom of splash so it's visible on mobile too */
 .splash-footer{
-  margin-top:14px;
-  padding:8px 12px;
+  position:absolute;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:6px 10px;
   border-radius:10px;
-  width:100%;
+  width:calc(100% - 40px);
   max-width:420px;
   text-align:center;
   background:linear-gradient(90deg,#fdb95c,#7daefe,#7de1d1);
   color:#111;
   font-weight:600;
+  font-size:0.85rem; /* chhota font for mobile visibility */
+  z-index:1001;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
 
 /* Screens */
@@ -135,11 +154,11 @@ body{
 .notify{position:fixed;right:18px;bottom:18px;background:#111;color:#fff;padding:8px 12px;border-radius:8px;opacity:0;transform:translateY(6px);transition:opacity .18s, transform .18s;pointer-events:none}
 .notify.show{opacity:1;transform:translateY(0);}
 
-/* small screens */
+/* small screens: keep buttons side-by-side as requested, but reduce padding/font a bit */
 @media (max-width:520px){
   .option-container{width:100%}
-  .button-group{flex-direction:column}
-  .start-btn{font-size:1.05rem;padding:14px}
+  .button-group{flex-direction:row; gap:8px; align-items:center;}
+  .start-btn{font-size:1.0rem;padding:12px; flex: 0 0 48%;}
 }
 
 @keyframes gradient{
