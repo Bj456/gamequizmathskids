@@ -42,12 +42,18 @@ body{
 }
 .splash-content{display:flex;flex-direction:column;align-items:center;gap:12px}
 .splash-img{width:90%;max-width:420px;aspect-ratio:9/16;object-fit:cover;border-radius:16px}
-.brand{font-size:2.4rem;color:var(--text-color);margin-bottom:6px;background:linear-gradient(90deg,#fdb95c,#7daefe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.brand{font-size:2.2rem;color:var(--text-color);margin-bottom:8px;background:linear-gradient(90deg,#fdb95c,#7daefe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
-/* Button group: make them large and responsive */
-.button-group{
-  display:flex;gap:12px;width:100%;max-width:420px;
+/* Splash buttons left-right */
+.splash-buttons{
+  display:flex;
+  justify-content:space-between;
+  width:100%;
+  max-width:420px;
+  gap:12px;
 }
+
+/* Button group: large and responsive */
 .start-btn{
   flex:1;
   padding:16px 12px;
@@ -64,17 +70,11 @@ body{
 .start-btn:active{transform:translateY(2px)}
 .start-btn:focus{outline:3px solid rgba(0,0,0,0.06)}
 
-.small-note{font-size:0.9rem;color:#333;margin-top:6px}
-.splash-footer{
-  margin-top:14px;
-  padding:8px 12px;
-  border-radius:10px;
-  width:100%;
-  max-width:420px;
+/* Music toggle */
+.small-note{
+  font-size:0.85rem;
+  margin-top:8px;
   text-align:center;
-  background:linear-gradient(90deg,#fdb95c,#7daefe,#7de1d1);
-  color:#111;
-  font-weight:600;
 }
 
 /* Screens */
@@ -142,36 +142,18 @@ body{
   .start-btn{font-size:1.05rem;padding:14px}
 }
 
-/* Gradient Animation */
+/* Responsive for Splash buttons */
+@media (max-width:420px){
+  .splash-buttons{
+    flex-direction:column;
+  }
+  .start-btn{
+    width:100%;
+  }
+}
+
 @keyframes gradient{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
-}
-
-/* ===== Extra Control Buttons ===== */
-#music-control {
-  position: fixed;
-  top: 12px;
-  right: 12px;
-  background: #fdb95c;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-weight: 600;
-  cursor: pointer;
-  z-index: 1200;
-}
-
-#back-btn {
-  position: fixed;
-  bottom: 12px;
-  right: 12px;
-  background: #7daefe;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-weight: 600;
-  cursor: pointer;
-  z-index: 1200;
 }
