@@ -30,7 +30,7 @@ body{
   animation: gradient 15s ease infinite;
 }
 
-/* Utilities */
+/* small utilities */
 .hide{display:none !important}
 .show{display:flex !important}
 
@@ -38,22 +38,20 @@ body{
 .splash{
   position:fixed;inset:0;
   display:flex;flex-direction:column;justify-content:center;align-items:center;
-  text-align:center;background:#f0f5fd;z-index:1000;padding:20px;
+  text-align:center;background:#f0f5fd;z-index:1000;padding:16px;
 }
-.splash-content{display:flex;flex-direction:column;align-items:center;gap:12px}
-.splash-img{width:80%;max-width:350px;aspect-ratio:9/16;object-fit:cover;border-radius:16px}
-.brand{font-size:2rem;color:var(--text-color);margin-bottom:6px;background:linear-gradient(90deg,#fdb95c,#7daefe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.splash-content{display:flex;flex-direction:column;align-items:center;gap:10px}
+.splash-img{width:80%;max-width:360px;aspect-ratio:9/16;object-fit:cover;border-radius:14px}
+.brand{font-size:2.2rem;color:var(--text-color);margin-bottom:6px;background:linear-gradient(90deg,#fdb95c,#7daefe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
-.splash-buttons{
-  display:flex;
-  justify-content:space-between;
-  width:100%;
-  max-width:320px;
-  gap:12px;
+/* Button group: horizontal by default */
+.button-group{
+  display:flex;gap:10px;width:100%;max-width:360px;
+  flex-wrap:wrap;
 }
 .start-btn{
   flex:1;
-  padding:14px;
+  padding:14px 10px;
   border-radius:14px;
   border:none;
   font-size:1rem;
@@ -67,41 +65,44 @@ body{
 .start-btn:active{transform:translateY(2px)}
 .start-btn:focus{outline:3px solid rgba(0,0,0,0.06)}
 
-.small-note{font-size:0.85rem;color:#333;margin-top:6px}
+/* Music / Back Buttons */
+#music-toggle, #back-btn{
+  position:fixed;
+  z-index:1001;
+  padding:8px 12px;
+  border:none;
+  border-radius:6px;
+  font-weight:600;
+  font-size:0.85rem;
+  cursor:pointer;
+  background:var(--secondary-color);
+  color:var(--text-color);
+  box-shadow:0 4px 14px rgba(0,0,0,0.12);
+}
+#music-toggle{top:12px;right:12px;}
+#back-btn{bottom:12px;right:12px;}
 
 /* Screens */
 .start,.question,.result{
   width:90%;max-width:520px;min-height:320px;background:var(--div-bg);
-  padding:1.6rem;border-radius:12px;display:none;flex-direction:column;gap:14px;
+  padding:1.4rem;border-radius:12px;display:none;flex-direction:column;gap:14px;
   box-shadow:0 12px 30px rgba(0,0,0,0.08);
-  position:relative;
 }
 .start.show,.question.show,.result.show{display:flex}
 
-/* Top-right and Bottom-right buttons */
-.top-right-btn, .bottom-right-btn{
-  position:absolute;padding:8px 10px;border:none;border-radius:6px;font-weight:700;font-size:0.9rem;cursor:pointer;background:var(--secondary-color);color:var(--text-color);box-shadow:0 4px 12px rgba(0,0,0,0.1);
-  z-index:10;
-}
-.top-right-btn{top:12px;right:12px}
-.bottom-right-btn{bottom:12px;right:12px}
-
 /* headings */
-.header h2{font-size:1.15rem;color:var(--text-color)}
+.header h2{font-size:1.1rem;color:var(--text-color)}
 .meta{display:flex;gap:12px;justify-content:space-between;color:#666;font-size:0.95rem;margin-top:6px}
 
-/* options */
+/* start options vertical layout */
 .start-options{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  justify-content:center;
-  align-items:stretch;
+  display:flex;flex-direction:column;gap:10px;align-items:stretch;
 }
 .option-container{
   padding:14px 12px;border-radius:28px;background:var(--white);
   text-align:center;cursor:pointer;font-weight:700;font-size:1rem;
-  font-family:var(--secondary-font);color:var(--text-color);box-shadow:0 6px 18px rgba(0,0,0,0.05);
+  font-family:var(--secondary-font);color:var(--text-color);
+  box-shadow:0 6px 18px rgba(0,0,0,0.05);
   transition:transform .12s ease, background .12s ease;
 }
 .option-container:active{transform:translateY(2px)}
@@ -145,7 +146,12 @@ body{
 /* small screens */
 @media (max-width:520px){
   .option-container{width:100%}
-  .splash-buttons{flex-direction:column;gap:8px}
+  .button-group{flex-direction:column}
   .start-btn{font-size:1rem;padding:12px}
-  .splash-img{width:90%;max-width:300px;}
+}
+
+@keyframes gradient{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
