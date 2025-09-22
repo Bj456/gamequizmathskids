@@ -18,19 +18,13 @@
         <button class="start-btn" id="start-en">Get Started</button>
         <button class="start-btn" id="start-hi">चलो शुरू करें</button>
       </div>
-
-      <div class="small-note">
-        <label><input type="checkbox" id="musicToggle" checked> Background music</label>
-      </div>
     </div>
   </div>
 
-  <!-- Start / Difficulty Screen -->
+  <!-- Start Screen -->
   <main class="start hide" aria-hidden="true">
-    <!-- Top-right music control -->
-    <button id="music-control" class="top-right-btn">Stop/Play Music</button>
-    <!-- Bottom-right back button -->
-    <button id="back-btn-start" class="bottom-right-btn">Back</button>
+    <button class="top-right-btn" id="music-toggle">Stop Background Music</button>
+    <button class="bottom-right-btn" id="back-btn">Back</button>
 
     <header class="header">
       <h2>Select difficulty and operation type, then hit Start to play.</h2>
@@ -64,8 +58,8 @@
 
   <!-- Question Screen -->
   <section class="question hide" aria-hidden="true">
-    <button id="music-control-question" class="top-right-btn">Stop/Play Music</button>
-    <button id="back-btn-question" class="bottom-right-btn">Back</button>
+    <button class="top-right-btn" id="music-toggle">Stop Background Music</button>
+    <button class="bottom-right-btn" id="back-btn">Back</button>
 
     <header class="header">
       <h2 id="question-text">Question text here</h2>
@@ -86,8 +80,8 @@
 
   <!-- Result Screen -->
   <section class="result hide" aria-hidden="true">
-    <button id="music-control-result" class="top-right-btn">Stop/Play Music</button>
-    <button id="back-btn-result" class="bottom-right-btn">Back</button>
+    <button class="top-right-btn" id="music-toggle">Stop Background Music</button>
+    <button class="bottom-right-btn" id="back-btn">Back</button>
 
     <div class="header">
       <h2>Your Score</h2>
