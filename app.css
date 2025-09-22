@@ -42,7 +42,6 @@ body{
 }
 .splash-content{display:flex;flex-direction:column;align-items:center;gap:12px}
 
-/* Splash image smaller for mobile-friendly layout */
 .splash-img {
   width:80%;       
   max-width:320px; 
@@ -54,18 +53,17 @@ body{
 
 .brand{font-size:2rem;color:var(--text-color);margin-bottom:8px;background:linear-gradient(90deg,#fdb95c,#7daefe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
-/* Splash buttons horizontal for all screens */
 .splash-buttons{
   display:flex;
   justify-content:space-between;
   width:100%;
-  max-width:360px; /* phone friendly */
+  max-width:360px;
   gap:8px;
 }
 
 .start-btn{
   flex:1;
-  min-width:0; /* allow shrink on small screens */
+  min-width:0;
   padding:12px;
   font-size:1rem;
   border-radius:14px;
@@ -80,7 +78,6 @@ body{
 .start-btn:active{transform:translateY(2px)}
 .start-btn:focus{outline:3px solid rgba(0,0,0,0.06)}
 
-/* Music toggle visible below buttons */
 .small-note {
   font-size:0.85rem;
   margin-top:8px;
@@ -100,11 +97,17 @@ body{
 .header h2{font-size:1.15rem;color:var(--text-color)}
 .meta{display:flex;gap:12px;justify-content:space-between;color:#666;font-size:0.95rem;margin-top:6px}
 
-/* options */
-.start-options{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+/* start screen operators vertical column */
+.start-options{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  align-items:stretch;
+  margin-top:8px;
+}
 .option-container{
   padding:14px 12px;border-radius:28px;background:var(--white);
-  width:48%;text-align:center;cursor:pointer;font-weight:700;font-size:1rem;
+  width:100%;text-align:center;cursor:pointer;font-weight:700;font-size:1rem;
   font-family:var(--secondary-font);color:var(--text-color);box-shadow:0 6px 18px rgba(0,0,0,0.05);
   transition:transform .12s ease, background .12s ease;
 }
@@ -134,6 +137,38 @@ body{
 .controls{display:flex;gap:12px;align-items:center;justify-content:space-between}
 .controls label{font-size:0.95rem;color:#333}
 
+/* quiz screen top-right music button */
+.top-right-btn{
+  position:absolute;
+  top:12px;
+  right:12px;
+  padding:8px 12px;
+  font-size:0.85rem;
+  border:none;
+  border-radius:8px;
+  background:var(--secondary-color);
+  color:var(--text-color);
+  cursor:pointer;
+  z-index:1001;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* quiz screen bottom-right back button */
+.bottom-right-btn{
+  position:absolute;
+  bottom:12px;
+  right:12px;
+  padding:8px 12px;
+  font-size:0.85rem;
+  border:none;
+  border-radius:8px;
+  background:var(--secondary-color);
+  color:var(--text-color);
+  cursor:pointer;
+  z-index:1001;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
 /* result */
 .result-actions{display:flex;gap:10px}
 .result-actions button{flex:1}
@@ -146,6 +181,12 @@ body{
 .notify{position:fixed;right:18px;bottom:18px;background:#111;color:#fff;padding:8px 12px;border-radius:8px;opacity:0;transform:translateY(6px);transition:opacity .18s, transform .18s;pointer-events:none}
 .notify.show{opacity:1;transform:translateY(0);}
 
+/* small screens */
+@media (max-width:520px){
+  .start-btn{font-size:1.05rem;padding:14px}
+}
+
+/* Gradient background animation */
 @keyframes gradient{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
