@@ -30,7 +30,7 @@ body{
   animation: gradient 15s ease infinite;
 }
 
-/* small utilities */
+/* Utilities */
 .hide{display:none !important}
 .show{display:flex !important}
 
@@ -41,33 +41,22 @@ body{
   text-align:center;background:#f0f5fd;z-index:1000;padding:20px;
 }
 .splash-content{display:flex;flex-direction:column;align-items:center;gap:12px}
-
-.splash-img {
-  width:80%;       
-  max-width:320px; 
-  aspect-ratio:9/16;
-  object-fit:cover;
-  border-radius:16px;
-  margin-bottom:12px;
-}
-
-.brand{font-size:2rem;color:var(--text-color);margin-bottom:8px;background:linear-gradient(90deg,#fdb95c,#7daefe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.splash-img{width:80%;max-width:350px;aspect-ratio:9/16;object-fit:cover;border-radius:16px}
+.brand{font-size:2rem;color:var(--text-color);margin-bottom:6px;background:linear-gradient(90deg,#fdb95c,#7daefe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
 .splash-buttons{
   display:flex;
   justify-content:space-between;
   width:100%;
-  max-width:360px;
-  gap:8px;
+  max-width:320px;
+  gap:12px;
 }
-
 .start-btn{
   flex:1;
-  min-width:0;
-  padding:12px;
-  font-size:1rem;
+  padding:14px;
   border-radius:14px;
   border:none;
+  font-size:1rem;
   font-weight:700;
   cursor:pointer;
   background:var(--secondary-color);
@@ -78,36 +67,40 @@ body{
 .start-btn:active{transform:translateY(2px)}
 .start-btn:focus{outline:3px solid rgba(0,0,0,0.06)}
 
-.small-note {
-  font-size:0.85rem;
-  margin-top:8px;
-  text-align:center;
-  display:block;  
-}
+.small-note{font-size:0.85rem;color:#333;margin-top:6px}
 
 /* Screens */
 .start,.question,.result{
   width:90%;max-width:520px;min-height:320px;background:var(--div-bg);
   padding:1.6rem;border-radius:12px;display:none;flex-direction:column;gap:14px;
   box-shadow:0 12px 30px rgba(0,0,0,0.08);
+  position:relative;
 }
 .start.show,.question.show,.result.show{display:flex}
+
+/* Top-right and Bottom-right buttons */
+.top-right-btn, .bottom-right-btn{
+  position:absolute;padding:8px 10px;border:none;border-radius:6px;font-weight:700;font-size:0.9rem;cursor:pointer;background:var(--secondary-color);color:var(--text-color);box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  z-index:10;
+}
+.top-right-btn{top:12px;right:12px}
+.bottom-right-btn{bottom:12px;right:12px}
 
 /* headings */
 .header h2{font-size:1.15rem;color:var(--text-color)}
 .meta{display:flex;gap:12px;justify-content:space-between;color:#666;font-size:0.95rem;margin-top:6px}
 
-/* start screen operators vertical column */
+/* options */
 .start-options{
   display:flex;
   flex-direction:column;
   gap:10px;
+  justify-content:center;
   align-items:stretch;
-  margin-top:8px;
 }
 .option-container{
   padding:14px 12px;border-radius:28px;background:var(--white);
-  width:100%;text-align:center;cursor:pointer;font-weight:700;font-size:1rem;
+  text-align:center;cursor:pointer;font-weight:700;font-size:1rem;
   font-family:var(--secondary-font);color:var(--text-color);box-shadow:0 6px 18px rgba(0,0,0,0.05);
   transition:transform .12s ease, background .12s ease;
 }
@@ -137,38 +130,6 @@ body{
 .controls{display:flex;gap:12px;align-items:center;justify-content:space-between}
 .controls label{font-size:0.95rem;color:#333}
 
-/* quiz screen top-right music button */
-.top-right-btn{
-  position:absolute;
-  top:12px;
-  right:12px;
-  padding:8px 12px;
-  font-size:0.85rem;
-  border:none;
-  border-radius:8px;
-  background:var(--secondary-color);
-  color:var(--text-color);
-  cursor:pointer;
-  z-index:1001;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* quiz screen bottom-right back button */
-.bottom-right-btn{
-  position:absolute;
-  bottom:12px;
-  right:12px;
-  padding:8px 12px;
-  font-size:0.85rem;
-  border:none;
-  border-radius:8px;
-  background:var(--secondary-color);
-  color:var(--text-color);
-  cursor:pointer;
-  z-index:1001;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
-}
-
 /* result */
 .result-actions{display:flex;gap:10px}
 .result-actions button{flex:1}
@@ -183,12 +144,8 @@ body{
 
 /* small screens */
 @media (max-width:520px){
-  .start-btn{font-size:1.05rem;padding:14px}
-}
-
-/* Gradient background animation */
-@keyframes gradient{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+  .option-container{width:100%}
+  .splash-buttons{flex-direction:column;gap:8px}
+  .start-btn{font-size:1rem;padding:12px}
+  .splash-img{width:90%;max-width:300px;}
 }
