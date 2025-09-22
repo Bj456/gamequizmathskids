@@ -14,7 +14,7 @@
       <img src="image1.png" alt="Splash Image" class="splash-img">
       <h1 class="brand">Quizzy Math Kids</h1>
 
-      <div class="button-group splash-buttons">
+      <div class="splash-buttons">
         <button class="start-btn" id="start-en">Get Started</button>
         <button class="start-btn" id="start-hi">चलो शुरू करें</button>
       </div>
@@ -32,10 +32,10 @@
     </header>
 
     <section class="start-options" role="list" aria-label="Operations">
-      <button class="option-container" data-operand="+">Addition</button>
-      <button class="option-container" data-operand="-">Subtraction</button>
-      <button class="option-container" data-operand="*">Multiplication</button>
-      <button class="option-container" data-operand="/">Division</button>
+      <button class="option-container" data-operand="+">जोड़ (+)</button>
+      <button class="option-container" data-operand="-">घटाना (-)</button>
+      <button class="option-container" data-operand="*">गुणा (×)</button>
+      <button class="option-container" data-operand="/">भाग (÷)</button>
     </section>
 
     <div class="controls">
@@ -59,6 +59,9 @@
 
   <!-- Question Screen -->
   <section class="question hide" aria-hidden="true">
+    <!-- Top right music control -->
+    <button id="music-control" class="top-right-btn">Stop/Play Music</button>
+
     <header class="header">
       <h2 id="question-text">Question text here</h2>
       <div class="meta">
@@ -70,6 +73,9 @@
     <img id="question-image" src="placeholder.png" alt="Question Illustration">
 
     <div class="options" id="options"></div>
+
+    <!-- Bottom-right back button -->
+    <button id="back-btn" class="bottom-right-btn">Back</button>
 
     <div class="footer">
       <button type="button" id="next-btn" disabled>Next Question</button>
