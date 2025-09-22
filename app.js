@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const soundWrong = document.getElementById('sound-wrong');
 
   // new buttons
-  const musicToggleBtn = document.getElementById('music-toggle');
-  const backBtn = document.getElementById('back-btn');
+  const musicToggleBtns = document.querySelectorAll('#music-toggle');
+  const backBtns = document.querySelectorAll('#back-btn');
 
   // start options
   const operandButtons = document.querySelectorAll('.option-container');
@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let totalQuestions = 20;
   let questions = [];
   let lastAnswerIndex = null;
-  let allowMusic = true;
   let isMusicPlaying = false;
 
   // helper - show notify
@@ -52,16 +51,26 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => notify.classList.remove('show'), ms);
   }
 
-  // audio control
-  function startBackgroundMusicIfAllowed() {
-    allowMusic = true;
-    if (allowMusic) {
+  // start background music
+  function startBackgroundMusic() {
+    if (!isMusicPlaying) {
       bgMusic.play().catch(() => {});
       isMusicPlaying = true;
-      musicToggleBtn.textContent = "Stop Background Music";
-      musicToggleBtn.classList.remove('hide');
-      backBtn.classList.remove('hide');
+      updateMusicButtons();
     }
+  }
+
+  function pauseBackgroundMusic() {
+    if (isMusicPlaying) {
+      bgMusic.pause();
+      isMusicPlaying = false;
+      updateMusicButtons();
+    }
+  }
+
+  function updateMusicButtons() {
+    const text = isMusicPlaying ? "Stop Background Music" : "Play Background Music";
+    musicToggleBtns.forEach(btn => btn.textContent = text);
   }
 
   [startEn, startHi].forEach(btn => {
@@ -70,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
       splash.classList.add('hide');
       startScreen.classList.remove('hide');
       startScreen.classList.add('show');
-      startBackgroundMusicIfAllowed();
+      startBackgroundMusic();
     });
   });
 
@@ -84,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     score = 0; currentQ = 0;
     startScreen.classList.remove('show'); startScreen.classList.add('hide');
     questionScreen.classList.remove('hide'); questionScreen.classList.add('show');
-    startBackgroundMusicIfAllowed();
+    startBackgroundMusic();
     renderQuestion();
   });
 
@@ -189,31 +198,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function shuffle(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
-  // music toggle btn
-  musicToggleBtn.addEventListener("click", () => {
-    if (isMusicPlaying) {
-      bgMusic.pause();
-      musicToggleBtn.textContent = "Play Background Music";
-      isMusicPlaying = false;
-    } else {
-      bgMusic.play().catch(()=>{});
-      musicToggleBtn.textContent = "Stop Background Music";
-      isMusicPlaying = true;
-    }
+  // music toggle buttons
+  musicToggleBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (isMusicPlaying) pauseBackgroundMusic();
+      else startBackgroundMusic();
+    });
   });
 
-  // back button
-  backBtn.addEventListener("click", () => {
-    bgMusic.pause();
-    isMusicPlaying = false;
-    musicToggleBtn.classList.add("hide");
-    backBtn.classList.add("hide");
-
-    startScreen.classList.remove('show');
-    questionScreen.classList.remove('show');
-    resultScreen.classList.remove('show');
-
-    splash.classList.remove('hide');
-    splash.classList.add('show');
+  // back buttons
+  backBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      pauseBackgroundMusic();
+      splash.classList.remove('hide'); splash.classList.add('show');
+      startScreen.classList.remove('show'); startScreen.classList.add('hide');
+      questionScreen.classList.remove('show'); questionScreen.classList.add('hide');
+      resultScreen.classList.remove('show'); resultScreen.classList.add('hide');
+    });
   });
+
 });
