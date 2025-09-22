@@ -25,17 +25,22 @@
     </div>
   </div>
 
-  <!-- Start Screen -->
+  <!-- Start / Difficulty Screen -->
   <main class="start hide" aria-hidden="true">
+    <!-- Top-right music control -->
+    <button id="music-control" class="top-right-btn">Stop/Play Music</button>
+    <!-- Bottom-right back button -->
+    <button id="back-btn-start" class="bottom-right-btn">Back</button>
+
     <header class="header">
       <h2>Select difficulty and operation type, then hit Start to play.</h2>
     </header>
 
     <section class="start-options" role="list" aria-label="Operations">
-      <button class="option-container" data-operand="+">जोड़ (+)</button>
-      <button class="option-container" data-operand="-">घटाना (-)</button>
-      <button class="option-container" data-operand="*">गुणा (×)</button>
-      <button class="option-container" data-operand="/">भाग (÷)</button>
+      <button class="option-container" data-operand="+">Addition / जोड़ (+)</button>
+      <button class="option-container" data-operand="-">Subtraction / घटाना (-)</button>
+      <button class="option-container" data-operand="*">Multiplication / गुणा (×)</button>
+      <button class="option-container" data-operand="/">Division / भाग (÷)</button>
     </section>
 
     <div class="controls">
@@ -59,8 +64,8 @@
 
   <!-- Question Screen -->
   <section class="question hide" aria-hidden="true">
-    <!-- Top right music control -->
-    <button id="music-control" class="top-right-btn">Stop/Play Music</button>
+    <button id="music-control-question" class="top-right-btn">Stop/Play Music</button>
+    <button id="back-btn-question" class="bottom-right-btn">Back</button>
 
     <header class="header">
       <h2 id="question-text">Question text here</h2>
@@ -74,9 +79,6 @@
 
     <div class="options" id="options"></div>
 
-    <!-- Bottom-right back button -->
-    <button id="back-btn" class="bottom-right-btn">Back</button>
-
     <div class="footer">
       <button type="button" id="next-btn" disabled>Next Question</button>
     </div>
@@ -84,6 +86,9 @@
 
   <!-- Result Screen -->
   <section class="result hide" aria-hidden="true">
+    <button id="music-control-result" class="top-right-btn">Stop/Play Music</button>
+    <button id="back-btn-result" class="bottom-right-btn">Back</button>
+
     <div class="header">
       <h2>Your Score</h2>
       <p id="final-score">0 / 0</p>
