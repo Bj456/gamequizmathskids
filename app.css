@@ -41,7 +41,17 @@ body{
   text-align:center;background:#f0f5fd;z-index:1000;padding:20px;
 }
 .splash-content{display:flex;flex-direction:column;align-items:center;gap:12px}
-.splash-img{width:90%;max-width:420px;aspect-ratio:9/16;object-fit:cover;border-radius:16px}
+
+/* Splash image smaller for mobile-friendly layout */
+.splash-img {
+  width:80%;       
+  max-width:320px; 
+  aspect-ratio:9/16;
+  object-fit:cover;
+  border-radius:16px;
+  margin-bottom:12px;
+}
+
 .brand{font-size:2rem;color:var(--text-color);margin-bottom:8px;background:linear-gradient(90deg,#fdb95c,#7daefe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
 /* Splash buttons horizontal for all screens */
@@ -70,11 +80,12 @@ body{
 .start-btn:active{transform:translateY(2px)}
 .start-btn:focus{outline:3px solid rgba(0,0,0,0.06)}
 
-/* Music toggle */
-.small-note{
+/* Music toggle visible below buttons */
+.small-note {
   font-size:0.85rem;
   margin-top:8px;
   text-align:center;
+  display:block;  
 }
 
 /* Screens */
