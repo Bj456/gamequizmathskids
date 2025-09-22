@@ -5,34 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="./app.css" />
   <title>Quizzy Math Kids</title>
-  <style>
-    /* Extra buttons styling */
-    #music-control {
-      position: fixed;
-      top: 12px;
-      right: 12px;
-      background: #fdb95c;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-weight: 600;
-      cursor: pointer;
-      z-index: 1200;
-    }
-
-    #back-btn {
-      position: fixed;
-      bottom: 12px;
-      right: 12px;
-      background: #7daefe;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-weight: 600;
-      cursor: pointer;
-      z-index: 1200;
-    }
-  </style>
 </head>
 <body>
 
@@ -42,7 +14,7 @@
       <img src="image1.png" alt="Splash Image" class="splash-img">
       <h1 class="brand">Quizzy Math Kids</h1>
 
-      <div class="button-group">
+      <div class="button-group splash-buttons">
         <button class="start-btn" id="start-en">Get Started</button>
         <button class="start-btn" id="start-hi">चलो शुरू करें</button>
       </div>
@@ -50,10 +22,6 @@
       <div class="small-note">
         <label><input type="checkbox" id="musicToggle" checked> Background music</label>
       </div>
-    </div>
-
-    <div class="splash-footer">
-      <p>Created by teacher Bhaskar Joshi | Email: bhaskarjoshi2024@gmail.com</p>
     </div>
   </div>
 
@@ -129,10 +97,6 @@
   <audio id="bg-music" loop preload="auto" src="bg.mp3"></audio>
   <audio id="sound-correct" preload="auto" src="correct.mp3"></audio>
   <audio id="sound-wrong" preload="auto" src="wrong.mp3"></audio>
-
-  <!-- Extra buttons -->
-  <button id="music-control" class="hide">Stop Music</button>
-  <button id="back-btn" class="hide">Back</button>
 
   <script src="./app.js"></script>
 </body>
