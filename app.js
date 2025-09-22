@@ -18,10 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const gradeEl = document.getElementById('grade');
   const notify = document.getElementById('notify');
 
-  const musicToggle = document.getElementById('musicToggle');
+  // music & sounds
   const bgMusic = document.getElementById('bg-music');
   const soundCorrect = document.getElementById('sound-correct');
   const soundWrong = document.getElementById('sound-wrong');
+
+  // new buttons
+  const musicToggleBtn = document.getElementById('music-toggle');
+  const backBtn = document.getElementById('back-btn');
 
   // start options
   const operandButtons = document.querySelectorAll('.option-container');
@@ -38,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let totalQuestions = 20;
   let questions = [];
   let lastAnswerIndex = null;
-  let allowMusic = musicToggle.checked;
+  let allowMusic = true;
+  let isMusicPlaying = false;
 
   // helper - show notify
   function showNotify(text, ms = 1500) {
@@ -47,32 +52,28 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => notify.classList.remove('show'), ms);
   }
 
-  // function to play/pause bg music based on checkbox
-  function handleBackgroundMusic() {
-    if (musicToggle.checked) {
-      bgMusic.currentTime = 0;
-      bgMusic.volume = 0.5;
-      bgMusic.play().catch(err => console.log("bgMusic play blocked:", err));
-    } else {
-      bgMusic.pause();
-      bgMusic.currentTime = 0;
+  // audio control
+  function startBackgroundMusicIfAllowed() {
+    allowMusic = true;
+    if (allowMusic) {
+      bgMusic.play().catch(() => {});
+      isMusicPlaying = true;
+      musicToggleBtn.textContent = "Stop Background Music";
+      musicToggleBtn.classList.remove('hide');
+      backBtn.classList.remove('hide');
     }
   }
 
-  // Get Started buttons click
   [startEn, startHi].forEach(btn => {
     btn.addEventListener('click', () => {
       splash.classList.remove('show');
       splash.classList.add('hide');
       startScreen.classList.remove('hide');
       startScreen.classList.add('show');
-
-      // Play bg music on first click
-      handleBackgroundMusic();
+      startBackgroundMusicIfAllowed();
     });
   });
 
-  // Start quiz button
   startBtn.addEventListener('click', () => {
     const selectedOperand = document.querySelector('.option-container.selected');
     if (!selectedOperand) { showNotify('Please select an operation first'); return; }
@@ -83,11 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
     score = 0; currentQ = 0;
     startScreen.classList.remove('show'); startScreen.classList.add('hide');
     questionScreen.classList.remove('hide'); questionScreen.classList.add('show');
-    handleBackgroundMusic();
+    startBackgroundMusicIfAllowed();
     renderQuestion();
   });
 
-  // Next question
   nextBtn.addEventListener('click', () => {
     currentQ++;
     lastAnswerIndex = null;
@@ -95,19 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
     else { renderQuestion(); }
   });
 
-  // Restart / Play again
   restartBtn.addEventListener('click', () => location.reload());
   playAgainBtn.addEventListener('click', () => {
     resultScreen.classList.remove('show'); resultScreen.classList.add('hide');
     startScreen.classList.remove('hide'); startScreen.classList.add('show');
   });
 
-  // Checkbox toggle
-  musicToggle.addEventListener('change', () => {
-    handleBackgroundMusic();
-  });
-
-  // Render question
   function renderQuestion() {
     const q = questions[currentQ];
     questionText.textContent = `Q${currentQ + 1}: ${q.text}`;
@@ -130,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
     else { img.style.display = 'none'; }
   }
 
-  // Handle answer click
   function handleAnswer(buttonEl, idx) {
     if (lastAnswerIndex !== null) return;
     lastAnswerIndex = idx;
@@ -156,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
     nextBtn.disabled = false;
   }
 
-  // Show results
   function showResults() {
     questionScreen.classList.remove('show'); questionScreen.classList.add('hide');
     resultScreen.classList.remove('hide'); resultScreen.classList.add('show');
@@ -170,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
     gradeEl.querySelector('p').textContent = grade;
   }
 
-  // Quiz generation
   function generateQuiz(op, difficulty, count) {
     const qList = [];
     const difficultyMap = { easy:{min:1,max:10}, average:{min:2,max:20}, hard:{min:5,max:99} };
@@ -198,4 +188,32 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function shuffle(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+  // music toggle btn
+  musicToggleBtn.addEventListener("click", () => {
+    if (isMusicPlaying) {
+      bgMusic.pause();
+      musicToggleBtn.textContent = "Play Background Music";
+      isMusicPlaying = false;
+    } else {
+      bgMusic.play().catch(()=>{});
+      musicToggleBtn.textContent = "Stop Background Music";
+      isMusicPlaying = true;
+    }
+  });
+
+  // back button
+  backBtn.addEventListener("click", () => {
+    bgMusic.pause();
+    isMusicPlaying = false;
+    musicToggleBtn.classList.add("hide");
+    backBtn.classList.add("hide");
+
+    startScreen.classList.remove('show');
+    questionScreen.classList.remove('show');
+    resultScreen.classList.remove('show');
+
+    splash.classList.remove('hide');
+    splash.classList.add('show');
+  });
 });
