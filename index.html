@@ -5,6 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="./app.css" />
   <title>Quizzy Math Kids</title>
+  <style>
+    /* Extra buttons styling */
+    #music-control {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      background: #fdb95c;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 1200;
+    }
+
+    #back-btn {
+      position: fixed;
+      bottom: 12px;
+      right: 12px;
+      background: #7daefe;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 1200;
+    }
+  </style>
 </head>
 <body>
 
@@ -101,6 +129,10 @@
   <audio id="bg-music" loop preload="auto" src="bg.mp3"></audio>
   <audio id="sound-correct" preload="auto" src="correct.mp3"></audio>
   <audio id="sound-wrong" preload="auto" src="wrong.mp3"></audio>
+
+  <!-- Extra buttons -->
+  <button id="music-control" class="hide">Stop Music</button>
+  <button id="back-btn" class="hide">Back</button>
 
   <script src="./app.js"></script>
 </body>
